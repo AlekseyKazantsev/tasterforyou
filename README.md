@@ -21,7 +21,7 @@ https://t.me/alekseykazantsev
 Применены следующие виды тестироватия:
 
 - Smoke тест
-
+(https://github.com/AlekseyKazantsev/testerforyou/blob/main/1.jpeg)
 
 
 
