@@ -132,73 +132,132 @@ from species
 where species_amount > 1800
 
 3. Составьте запрос, который выведет имя вида, начинающегося на «п» и относящегося к типу с type_id = 5. 
+```
 select species_name
+
 from species
+
 where species_name like 'п%' and type_id = 5
+```
 
 4. Составьте запрос, который выведет имя вида, заканчивающегося на «са» или количество представителей которого равно 5. 
+```
 select species_name, species_amount
+
 from species
+
 where species_name like '%са' or species_amount = 5
+```
 
 5. Составьте запрос, который выведет имя вида, появившегося на учете в 2023 году. 
+```
 select species_name
+
 from species
+
 where extract (year from date_start) = 2023
+```
 
 6. Составьте запрос, который выведет названия отсутствующего (status = absent) вида, расположенного вместе с place_id = 3. 
+```
 select species.species_name, places.place_id
+
 from species
+
 join species_in_places on species.species_id = species_in_places.species_id
+
 join places on species_in_places.place_id = places.place_id
+
 where species.species_status = 'absent' and places.place_id = 3
+```
 
 7. Составьте запрос, который выведет название вида, расположенного в доме и появившегося в мае, а также и количество представителей вида. 
+```
 select species.species_name, places.place_name, species.species_amount
+
 from species
+
 join species_in_places on species.species_id = species_in_places.species_id
+
 join places on species_in_places.place_id = places.place_id
+
 where place_name = 'дом' and extract(month from species.date_start) = 5
+```
 
 8. Составьте запрос, который выведет название вида, состоящего из двух слов (содержит пробел). 
+```
 select species_name
+
 from species
+
 where species_name like '% %'
+```
 
 9. Составьте запрос, который выведет имя вида, появившегося с малышом в один день. 
+```
 select species_name, date_start
+
 from species
+
 where date_start in(
+
 	select date_start
+
 	from species
+
 	where species_name = 'малыш')
+```
 
 10. Составьте запрос, который выведет название вида, расположенного в здании с наибольшей площадью. 
+```
 select species.species_name, places.place_name, place_size
+
 from species
+
 join species_in_places on species.species_id = species_in_places.species_id
+
 join places on species_in_places.place_id = places.place_id
+
 where place_name in ('сарай', 'дом')
+
 order by place_size desc
+
 limit 1
+```
 
 11. Составьте запрос/запросы, которые найдут название вида, относящегося к 5-й по численности группе проживающей дома. 
+```
 select species.species_name, places.place_name, species.species_amount
+
 from species
+
 join species_in_places on species.species_id = species_in_places.species_id
+
 join places on species_in_places.place_id = places.place_id
+
 where places.place_name = 'дом'
+
 group by species.species_name, places.place_name, species.species_amount
+
 order by species.species_amount desc
+
 limit 1 offset 4
+```
 
 12. Составьте запрос, который выведет сказочный вид (статус fairy), нерасположенный ни в одном месте.
+```
 select species_name, species_status
+
 from species
+
 where species_status = 'fairy' and species_id not in (
+
 select distinct species_id
+
 from species_in_places
+
 )
+```
 
 
 
