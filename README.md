@@ -120,10 +120,15 @@ ____
 
 select type_id, species_name
 
-rom species
+from species
 
 order by type_id asc
 
+limit 1
+
+select type_id, species_name
+from species
+order by type_id asc
 limit 1
 
 2. Составьте запрос, который выведет имя вида с количеством представителей более 1800. 
